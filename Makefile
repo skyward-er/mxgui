@@ -2,7 +2,7 @@
 ## Makefile for mxgui
 ## This makefile builds libmxgui.a
 ##
-MAKEFILE_VERSION := 1.07
+MAKEFILE_VERSION := 1.07S
 ## KPATH and CONFPATH are forwarded by the parent Makefile
 include $(CONFPATH)/config/Makefile.inc
 
