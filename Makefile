@@ -2,7 +2,9 @@
 ## Makefile for mxgui
 ## This makefile builds libmxgui.a
 ##
-MAKEFILE_VERSION := 1.07S
+MAKEFILE_VERSION := 1.09S
+GCCMAJOR := $(shell arm-miosix-eabi-gcc --version | \
+                    perl -e '$$_=<>;/\(GCC\) (\d+)/;print "$$1"')
 ## KPATH and CONFPATH are forwarded by the parent Makefile
 include $(CONFPATH)/config/Makefile.inc
 
@@ -26,6 +28,7 @@ drivers/display_mp3v2.cpp              \
 drivers/event_mp3v2.cpp                \
 drivers/resfs_mp3v2.cpp                \
 drivers/display_strive.cpp             \
+drivers/display_st7735.cpp             \
 drivers/display_oledboard2.cpp         \
 drivers/event_strive.cpp               \
 drivers/display_redbull_v2.cpp         \
@@ -36,7 +39,8 @@ drivers/event_sony-newman.cpp          \
 drivers/display_stm32f4discovery.cpp   \
 drivers/event_stm32f4discovery.cpp     \
 drivers/display_generic_1bpp.cpp       \
-drivers/display_generic_4bpp.cpp
+drivers/display_generic_4bpp.cpp       \
+drivers/display_st7735.cpp
 
 ifeq ("$(VERBOSE)","1")
 Q := 
