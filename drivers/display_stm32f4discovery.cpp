@@ -336,7 +336,8 @@ DisplayImpl::DisplayImpl()
         RCC->CR |= RCC_CR_PLLSAION;
     }
     
-    while((RCC->CR & RCC_CR_PLLSAIRDY)==0) ;
+    while((RCC->CR & RCC_CR_PLLSAIRDY)==0)
+        ;
     
     {
         FastInterruptDisableLock dLock;
