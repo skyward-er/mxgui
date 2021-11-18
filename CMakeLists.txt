@@ -36,42 +36,43 @@ foreach(OPT_BOARD ${BOARDS})
 
     set(MXGUI_LIBRARY mxgui-${OPT_BOARD})
     add_library(${MXGUI_LIBRARY} STATIC
-        display.cpp
-        font.cpp
-        misc_inst.cpp
-        tga_image.cpp
-        resourcefs.cpp
-        resource_image.cpp
-        level2/input.cpp
-        level2/application.cpp
-        level2/drawing_context_proxy.cpp
-        level2/label.cpp
-        level2/simple_plot.cpp
-        drivers/display_stm3210e-eval.cpp
-        drivers/event_stm3210e-eval.cpp
-        drivers/display_mp3v2.cpp
-        drivers/event_mp3v2.cpp
-        drivers/resfs_mp3v2.cpp
-        drivers/display_strive.cpp
-        drivers/display_st7735.cpp
-        drivers/display_oledboard2.cpp
-        drivers/event_strive.cpp
-        drivers/display_redbull_v2.cpp
-        drivers/event_redbull_v2.cpp
-        drivers/display_bitsboard.cpp
-        drivers/display_sony-newman.cpp
-        drivers/event_sony-newman.cpp
-        drivers/display_stm32f4discovery.cpp
-        drivers/event_stm32f4discovery.cpp
-        drivers/display_generic_1bpp.cpp
-        drivers/display_generic_4bpp.cpp
-        drivers/display_st7735.cpp
+        mxgui/display.cpp
+        mxgui/font.cpp
+        mxgui/misc_inst.cpp
+        mxgui/tga_image.cpp
+        mxgui/resourcefs.cpp
+        mxgui/resource_image.cpp
+        mxgui/level2/input.cpp
+        mxgui/level2/application.cpp
+        mxgui/level2/drawing_context_proxy.cpp
+        mxgui/level2/label.cpp
+        mxgui/level2/simple_plot.cpp
+        mxgui/drivers/display_stm3210e-eval.cpp
+        mxgui/drivers/event_stm3210e-eval.cpp
+        mxgui/drivers/display_mp3v2.cpp
+        mxgui/drivers/event_mp3v2.cpp
+        mxgui/drivers/resfs_mp3v2.cpp
+        mxgui/drivers/display_strive.cpp
+        mxgui/drivers/display_st7735.cpp
+        mxgui/drivers/display_oledboard2.cpp
+        mxgui/drivers/event_strive.cpp
+        mxgui/drivers/display_redbull_v2.cpp
+        mxgui/drivers/event_redbull_v2.cpp
+        mxgui/drivers/display_bitsboard.cpp
+        mxgui/drivers/display_sony-newman.cpp
+        mxgui/drivers/event_sony-newman.cpp
+        mxgui/drivers/display_stm32f4discovery.cpp
+        mxgui/drivers/event_stm32f4discovery.cpp
+        mxgui/drivers/display_generic_1bpp.cpp
+        mxgui/drivers/display_generic_4bpp.cpp
+        mxgui/drivers/display_st7735.cpp
     )
-    add_library(mxgui::${MXGUI_LIBRARY} ALIAS ${MXGUI_LIBRARY})
+    add_library(Mxgui::Mxgui-${OPT_BOARD} ALIAS ${MXGUI_LIBRARY})
     target_include_directories(${MXGUI_LIBRARY} PUBLIC
         ${KPATH}/config
         ${KPATH}/config/${BOARD_INC}
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/mxgui
         ${KPATH}
         ${KPATH}/arch/common
         ${KPATH}/${ARCH_INC}
