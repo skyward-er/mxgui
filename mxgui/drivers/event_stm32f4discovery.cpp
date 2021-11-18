@@ -28,7 +28,15 @@
 
 #include <config/mxgui_settings.h>
 
-#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) && defined(MXGUI_LEVEL_2)
+#if (defined(_BOARD_STM32F4DISCOVERY)                 \
+    || defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY)   \
+    || defined(_BOARD_STM32F429ZI_OLEDBOARD2)         \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN)     \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE)    \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA)  \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST)    \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X)) \
+    && defined(MXGUI_LEVEL_2)
 
 #include "event_stm32f4discovery.h"
 #include "miosix.h"

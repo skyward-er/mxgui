@@ -32,7 +32,13 @@
 using namespace std;
 using namespace miosix;
 
-#ifdef _BOARD_STM32F429ZI_STM32F4DISCOVERY
+#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY)     \
+    || defined(_BOARD_STM32F429ZI_OLEDBOARD2)        \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN)    \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE)   \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST)   \
+    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X)
 
 namespace mxgui {
 
