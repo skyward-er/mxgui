@@ -79,5 +79,5 @@ foreach(OPT_BOARD ${BOARDS})
         ${KPATH}/${BOARD_INC}
     )
     target_compile_options(${MXGUI_LIBRARY} PUBLIC ${DFLAGS} $<$<COMPILE_LANGUAGE:C>:${CFLAGS_BASE}> $<$<COMPILE_LANGUAGE:CXX>:${CXXFLAGS_BASE}> $<$<COMPILE_LANGUAGE:ASM>:${AFLAGS_BASE}>)
-    target_compile_definitions(${MXGUI_LIBRARY} PUBLIC MXGUI_LIBRARY)
+    target_compile_definitions(${MXGUI_LIBRARY} PRIVATE MXGUI_LIBRARY)
 endforeach()
