@@ -67,7 +67,7 @@ foreach(OPT_BOARD ${BOARDS})
         mxgui/drivers/display_generic_4bpp.cpp
         mxgui/drivers/display_st7735.cpp
     )
-    add_library(Mxgui::Mxgui-${OPT_BOARD} ALIAS ${MXGUI_LIBRARY})
+    add_library(Mxgui::Mxgui::${OPT_BOARD} ALIAS ${MXGUI_LIBRARY})
     target_include_directories(${MXGUI_LIBRARY} PUBLIC
         ${KPATH}/config
         ${KPATH}/config/${BOARD_INC}
