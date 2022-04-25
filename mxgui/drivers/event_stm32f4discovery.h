@@ -44,7 +44,8 @@
     || defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) \
     || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST)   \
     || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) \
-    || defined(_BOARD_STM32F429ZI_HRE_TEST_STAND)
+    || defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) \
+    || defined(_BOARD_STM32F429ZI_PARAFOIL)
 
 namespace mxgui {
 
