@@ -40,6 +40,7 @@
     || defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) \
     || defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) \
     || defined(_BOARD_STM32F429ZI_PARAFOIL) \
+    || defined(_BOARD_STM32F205RC_SKYWARD_CIUTI) \
     && defined(MXGUI_LEVEL_2)
 
 #include "event_stm32f4discovery.h"
