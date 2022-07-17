@@ -28,29 +28,31 @@
 #ifndef MXGUI_LIBRARY
 #error "This is header is private, it can be used only within mxgui."
 #error "If your code depends on a private header, it IS broken."
-#endif //MXGUI_LIBRARY
+#endif  // MXGUI_LIBRARY
 
 #include <functional>
+
 #include "level2/input.h"
 
 #ifndef EVENT_STM32F4DISCOVERY_H
-#define	EVENT_STM32F4DISCOVERY_H
+#define EVENT_STM32F4DISCOVERY_H
 
-#if defined(_BOARD_STM32F4DISCOVERY)                 \
-    || defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY)  \
-    || defined(_BOARD_STM32F429ZI_OLEDBOARD2)        \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN)    \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE)   \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST)   \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) \
-    || defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) \
-    || defined(_BOARD_STM32F429ZI_PARAFOIL) \
-    || defined(_BOARD_STM32F205RC_SKYWARD_CIUTI)
+#if defined(_BOARD_STM32F4DISCOVERY) ||                    \
+    defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) ||        \
+    defined(_BOARD_STM32F429ZI_OLEDBOARD2) ||              \
+    defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN) ||          \
+    defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE) ||         \
+    defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) ||       \
+    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST) ||         \
+    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) ||       \
+    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) ||      \
+    defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
+    defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
+    defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
+    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI)
 
-namespace mxgui {
+namespace mxgui
+{
 
 /**
  * Implementation class to handle events in the Mp3v2 backend
@@ -70,22 +72,23 @@ public:
      * if there are no events.
      */
     Event popEvent();
-    
+
     /**
      * Register a callback that will be called every time an event is geenrated
-     * 
+     *
      * Note: the thread calling the callback has a very small stack.
      *
-     * Note: concurrent access to this memebr function causes undefined behaviour
-     * 
+     * Note: concurrent access to this memebr function causes undefined
+     * behaviour
+     *
      * \param cb new callback to register
      * \return the previous callback
      */
-    std::function<void ()> registerEventCallback(std::function<void ()> cb);
+    std::function<void()> registerEventCallback(std::function<void()> cb);
 };
 
-} //namespace mxgui
+}  // namespace mxgui
 
-#endif //_BOARD_STM32F429ZI_STM32F4DISCOVERY
+#endif  //_BOARD_STM32F429ZI_STM32F4DISCOVERY
 
-#endif //EVENT_STM32F4DISCOVERY_H
+#endif  // EVENT_STM32F4DISCOVERY_H

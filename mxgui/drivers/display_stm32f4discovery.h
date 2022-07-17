@@ -28,41 +28,44 @@
 #ifndef MXGUI_LIBRARY
 #error "This is header is private, it can be used only within mxgui."
 #error "If your code depends on a private header, it IS broken."
-#endif //MXGUI_LIBRARY
+#endif  // MXGUI_LIBRARY
 
 #ifndef DISPLAY_STM32F4DISCOVERY_H
-#define	DISPLAY_STM32F4DISCOVERY_H
+#define DISPLAY_STM32F4DISCOVERY_H
 
-#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY)     \
-    || defined(_BOARD_STM32F429ZI_OLEDBOARD2)        \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN)    \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE)   \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST)   \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) \
-    || defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) \
-    || defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) \
-    || defined(_BOARD_STM32F429ZI_PARAFOIL) \
-    || defined(_BOARD_STM32F205RC_SKYWARD_CIUTI)
+#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) ||        \
+    defined(_BOARD_STM32F429ZI_OLEDBOARD2) ||              \
+    defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN) ||          \
+    defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE) ||         \
+    defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) ||       \
+    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST) ||         \
+    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) ||       \
+    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) ||      \
+    defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
+    defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
+    defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
+    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI)
 
 #include <config/mxgui_settings.h>
-#include "display.h"
-#include "point.h"
+
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
+
 #include "color.h"
+#include "display.h"
 #include "font.h"
 #include "image.h"
 #include "iterator_direction.h"
-#include "misc_inst.h"
 #include "line.h"
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+#include "misc_inst.h"
+#include "point.h"
 
-namespace mxgui {
+namespace mxgui
+{
 
-//This display is 16 bit per pixel, check that the color depth is properly
-//configured
+// This display is 16 bit per pixel, check that the color depth is properly
+// configured
 #ifndef MXGUI_COLOR_DEPTH_16_BIT
 #error The ILI9341 driver requires a color depth of 16bit per pixel
 #endif
@@ -74,7 +77,7 @@ public:
      * \return an instance to this class (singleton)
      */
     static DisplayImpl& instance();
-    
+
     /**
      * Turn the display On after it has been turned Off.
      * Display initial state is On.
@@ -85,14 +88,14 @@ public:
      * Turn the display Off. It can be later turned back On.
      */
     void doTurnOff() override;
-    
+
     /**
      * Set display brightness. Depending on the underlying driver,
      * may do nothing.
      * \param brt from 0 to 100
      */
     void doSetBrightness(int brt) override;
-    
+
     /**
      * \return a pair with the display height and width
      */
@@ -103,7 +106,7 @@ public:
      * \param p point where the upper left corner of the text will be printed
      * \param text, text to print.
      */
-    void write(Point p, const char *text) override;
+    void write(Point p, const char* text) override;
 
     /**
      * Write part of text to the display
@@ -114,7 +117,7 @@ public:
      * \param b Lower right corner of clipping rectangle
      * \param text text to write
      */
-    void clippedWrite(Point p, Point a, Point b, const char *text) override;
+    void clippedWrite(Point p, Point a, Point b, const char* text) override;
 
     /**
      * Clear the Display. The screen will be filled with the desired color
@@ -160,14 +163,14 @@ public:
      * \param length length of colors array.
      * p.x()+length must be <= display.width()
      */
-    void scanLine(Point p, const Color *colors, unsigned short length) override;
-    
+    void scanLine(Point p, const Color* colors, unsigned short length) override;
+
     /**
      * \return a buffer of length equal to this->getWidth() that can be used to
      * render a scanline.
      */
-    Color *getScanLineBuffer() override;
-    
+    Color* getScanLineBuffer() override;
+
     /**
      * Draw the content of the last getScanLineBuffer() on an horizontal line
      * on the screen.
@@ -193,7 +196,8 @@ public:
      * \param b Lower right corner of clipping rectangle
      * \param i Image to draw
      */
-    void clippedDrawImage(Point p, Point a, Point b, const ImageBase& img) override;
+    void clippedDrawImage(Point p, Point a, Point b,
+                          const ImageBase& img) override;
 
     /**
      * Draw a rectangle (not filled) with the desired color
@@ -202,7 +206,7 @@ public:
      * \param c color of the line
      */
     void drawRectangle(Point a, Point b, Color c) override;
-    
+
     /**
      * Pixel iterator. A pixel iterator is an output iterator that allows to
      * define a window on the display and write to its pixels.
@@ -216,26 +220,28 @@ public:
          * happens to the same memory location, but we need a safe
          * /dev/null-like location where to write, which is dummy
          */
-        pixel_iterator() : ctr(0), endCtr(0), aIncr(0), sIncr(0),
-                dataPtr(&dummy) {}
+        pixel_iterator()
+            : ctr(0), endCtr(0), aIncr(0), sIncr(0), dataPtr(&dummy)
+        {
+        }
 
         /**
          * Set a pixel and move the pointer to the next one
          * \param color color to set the current pixel
          * \return a reference to this
          */
-        pixel_iterator& operator= (Color color)
+        pixel_iterator& operator=(Color color)
         {
-            *dataPtr=color;
+            *dataPtr = color;
 
-            //This is to move to the adjacent pixel
-            dataPtr+=aIncr;
-            
-            //This is the step move to the next horizontal/vertical line
-            if(++ctr>=endCtr)
+            // This is to move to the adjacent pixel
+            dataPtr += aIncr;
+
+            // This is the step move to the next horizontal/vertical line
+            if (++ctr >= endCtr)
             {
-                ctr=0;
-                dataPtr+=sIncr;
+                ctr = 0;
+                dataPtr += sIncr;
             }
             return *this;
         }
@@ -244,35 +250,35 @@ public:
          * Compare two pixel_iterators for equality.
          * They are equal if they point to the same location.
          */
-        bool operator== (const pixel_iterator& itr)
+        bool operator==(const pixel_iterator& itr)
         {
-            return this->dataPtr==itr.dataPtr;
+            return this->dataPtr == itr.dataPtr;
         }
 
         /**
          * Compare two pixel_iterators for inequality.
          * They different if they point to different locations.
          */
-        bool operator!= (const pixel_iterator& itr)
+        bool operator!=(const pixel_iterator& itr)
         {
-            return this->dataPtr!=itr.dataPtr;
+            return this->dataPtr != itr.dataPtr;
         }
 
         /**
          * \return a reference to this.
          */
-        pixel_iterator& operator* () { return *this; }
+        pixel_iterator& operator*() { return *this; }
 
         /**
          * \return a reference to this. Does not increment pixel pointer.
          */
-        pixel_iterator& operator++ ()  { return *this; }
+        pixel_iterator& operator++() { return *this; }
 
         /**
          * \return a reference to this. Does not increment pixel pointer.
          */
-        pixel_iterator& operator++ (int)  { return *this; }
-        
+        pixel_iterator& operator++(int) { return *this; }
+
         /**
          * Must be called if not all pixels of the required window are going
          * to be written.
@@ -288,33 +294,36 @@ public:
          * \param disp Display we're associated
          */
         pixel_iterator(Point start, Point end, IteratorDirection direction,
-                DisplayImpl *disp) : ctr(0), dataPtr(disp->framebuffer1)
+                       DisplayImpl* disp)
+            : ctr(0), dataPtr(disp->framebuffer1)
         {
-            //Compute the increment in the adjacent direction (aIncr) and in the
-            //step direction (sIncr) depending on the direction
-            dataPtr+=start.y()*disp->getWidth()+start.x();
-            if(direction==RD)
+            // Compute the increment in the adjacent direction (aIncr) and in
+            // the step direction (sIncr) depending on the direction
+            dataPtr += start.y() * disp->getWidth() + start.x();
+            if (direction == RD)
             {
-                endCtr=end.x()+1-start.x();
-                aIncr=1;
-                sIncr=disp->getWidth()-endCtr;
-            } else {
-                endCtr=end.y()+1-start.y();
-                aIncr=disp->getWidth();
-                sIncr=-aIncr*endCtr+1;
+                endCtr = end.x() + 1 - start.x();
+                aIncr  = 1;
+                sIncr  = disp->getWidth() - endCtr;
+            }
+            else
+            {
+                endCtr = end.y() + 1 - start.y();
+                aIncr  = disp->getWidth();
+                sIncr  = -aIncr * endCtr + 1;
             }
         }
 
-        unsigned short ctr;           ///< Counter to decide when to step
-        unsigned short endCtr;        ///< When ctr==endCtr apply a step
-        
-        short aIncr;                  ///< Adjacent increment
-        int sIncr;                    ///< Step increment           
-        Color *dataPtr;               ///< Pointer to framebuffer
-        
-        static Color dummy;           ///< Invalid iterators write here
+        unsigned short ctr;     ///< Counter to decide when to step
+        unsigned short endCtr;  ///< When ctr==endCtr apply a step
 
-        friend class DisplayImpl; //Needs access to ctor
+        short aIncr;     ///< Adjacent increment
+        int sIncr;       ///< Step increment
+        Color* dataPtr;  ///< Pointer to framebuffer
+
+        static Color dummy;  ///< Invalid iterators write here
+
+        friend class DisplayImpl;  // Needs access to ctor
     };
 
     /**
@@ -334,7 +343,7 @@ public:
      * begin()
      */
     pixel_iterator end() const { return last; }
-    
+
     /**
      * Destructor
      */
@@ -346,51 +355,55 @@ private:
      * Do not instantiate objects of this type directly from application code.
      */
     DisplayImpl();
-    
-    #if defined MXGUI_ORIENTATION_VERTICAL
-    static const short int width=240;
-    static const short int height=320;
-    #elif defined MXGUI_ORIENTATION_HORIZONTAL || \
-          defined MXGUI_ORIENTATION_VERTICAL_MIRRORED || \
-          defined MXGUI_ORIENTATION_HORIZONTAL_MIRRORED
-    #error unsupported orientation
-    #else
-    #error No orientation defined
-    #endif
+
+#if defined MXGUI_ORIENTATION_VERTICAL
+    static const short int width  = 240;
+    static const short int height = 320;
+#elif defined MXGUI_ORIENTATION_HORIZONTAL ||      \
+    defined MXGUI_ORIENTATION_VERTICAL_MIRRORED || \
+    defined MXGUI_ORIENTATION_HORIZONTAL_MIRRORED
+#error unsupported orientation
+#else
+#error No orientation defined
+#endif
 
     /**
      * Pointer to the memory mapped display.
      */
-    Color * const framebuffer1;
-    Color *buffer; ///< For scanLineBuffer
-    pixel_iterator last; ///< Last iterator for end of iteration check
-    static const unsigned int bpp=sizeof(Color); ///< Bytes per pixel
-    static const int numPixels=width*height; ///< Number of pixels of the display
+    Color* const framebuffer1;
+    Color* buffer;        ///< For scanLineBuffer
+    pixel_iterator last;  ///< Last iterator for end of iteration check
+    static const unsigned int bpp = sizeof(Color);  ///< Bytes per pixel
+    static const int numPixels =
+        width * height;  ///< Number of pixels of the display
 };
 
-} //namespace mxgui
+}  // namespace mxgui
 
-#endif //_BOARD_STM32F429ZI_STM32F4DISCOVERY
+#endif  //_BOARD_STM32F429ZI_STM32F4DISCOVERY
 
 #ifdef _BOARD_STM32F469NI_STM32F469I_DISCO
 
 #include <config/mxgui_settings.h>
-#include "display.h"
-#include "point.h"
+
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
+
 #include "color.h"
+#include "display.h"
 #include "font.h"
 #include "image.h"
 #include "iterator_direction.h"
-#include "misc_inst.h"
 #include "line.h"
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+#include "misc_inst.h"
+#include "point.h"
 
-namespace mxgui {
+namespace mxgui
+{
 
-//This display is 16 bit per pixel, check that the color depth is properly
-//configured
+// This display is 16 bit per pixel, check that the color depth is properly
+// configured
 #ifndef MXGUI_COLOR_DEPTH_16_BIT
 #error The OTM8009A driver requires a color depth of 16bit per pixel
 #endif
@@ -402,7 +415,7 @@ public:
      * \return an instance to this class (singleton)
      */
     static DisplayImpl& instance();
-    
+
     /**
      * Turn the display On after it has been turned Off.
      * Display initial state is On.
@@ -413,14 +426,14 @@ public:
      * Turn the display Off. It can be later turned back On.
      */
     void doTurnOff() override;
-    
+
     /**
      * Set display brightness. Depending on the underlying driver,
      * may do nothing.
      * \param brt from 0 to 100
      */
     void doSetBrightness(int brt) override;
-    
+
     /**
      * \return a pair with the display height and width
      */
@@ -431,7 +444,7 @@ public:
      * \param p point where the upper left corner of the text will be printed
      * \param text, text to print.
      */
-    void write(Point p, const char *text) override;
+    void write(Point p, const char* text) override;
 
     /**
      * Write part of text to the display
@@ -442,7 +455,7 @@ public:
      * \param b Lower right corner of clipping rectangle
      * \param text text to write
      */
-    void clippedWrite(Point p, Point a, Point b, const char *text) override;
+    void clippedWrite(Point p, Point a, Point b, const char* text) override;
 
     /**
      * Clear the Display. The screen will be filled with the desired color
@@ -488,14 +501,14 @@ public:
      * \param length length of colors array.
      * p.x()+length must be <= display.width()
      */
-    void scanLine(Point p, const Color *colors, unsigned short length) override;
-    
+    void scanLine(Point p, const Color* colors, unsigned short length) override;
+
     /**
      * \return a buffer of length equal to this->getWidth() that can be used to
      * render a scanline.
      */
-    Color *getScanLineBuffer() override;
-    
+    Color* getScanLineBuffer() override;
+
     /**
      * Draw the content of the last getScanLineBuffer() on an horizontal line
      * on the screen.
@@ -521,7 +534,8 @@ public:
      * \param b Lower right corner of clipping rectangle
      * \param i Image to draw
      */
-    void clippedDrawImage(Point p, Point a, Point b, const ImageBase& img) override;
+    void clippedDrawImage(Point p, Point a, Point b,
+                          const ImageBase& img) override;
 
     /**
      * Draw a rectangle (not filled) with the desired color
@@ -530,13 +544,13 @@ public:
      * \param c color of the line
      */
     void drawRectangle(Point a, Point b, Color c) override;
-    
+
     /**
      * Make all changes done to the display since the last call to update()
      * visible. This backend requires it.
      */
     void update() override;
-    
+
     /**
      * Pixel iterator. A pixel iterator is an output iterator that allows to
      * define a window on the display and write to its pixels.
@@ -550,26 +564,28 @@ public:
          * happens to the same memory location, but we need a safe
          * /dev/null-like location where to write, which is dummy
          */
-        pixel_iterator() : ctr(0), endCtr(0), aIncr(0), sIncr(0),
-                dataPtr(&dummy) {}
+        pixel_iterator()
+            : ctr(0), endCtr(0), aIncr(0), sIncr(0), dataPtr(&dummy)
+        {
+        }
 
         /**
          * Set a pixel and move the pointer to the next one
          * \param color color to set the current pixel
          * \return a reference to this
          */
-        pixel_iterator& operator= (Color color)
+        pixel_iterator& operator=(Color color)
         {
-            *dataPtr=color;
+            *dataPtr = color;
 
-            //This is to move to the adjacent pixel
-            dataPtr+=aIncr;
-            
-            //This is the step move to the next horizontal/vertical line
-            if(++ctr>=endCtr)
+            // This is to move to the adjacent pixel
+            dataPtr += aIncr;
+
+            // This is the step move to the next horizontal/vertical line
+            if (++ctr >= endCtr)
             {
-                ctr=0;
-                dataPtr+=sIncr;
+                ctr = 0;
+                dataPtr += sIncr;
             }
             return *this;
         }
@@ -578,35 +594,35 @@ public:
          * Compare two pixel_iterators for equality.
          * They are equal if they point to the same location.
          */
-        bool operator== (const pixel_iterator& itr)
+        bool operator==(const pixel_iterator& itr)
         {
-            return this->dataPtr==itr.dataPtr;
+            return this->dataPtr == itr.dataPtr;
         }
 
         /**
          * Compare two pixel_iterators for inequality.
          * They different if they point to different locations.
          */
-        bool operator!= (const pixel_iterator& itr)
+        bool operator!=(const pixel_iterator& itr)
         {
-            return this->dataPtr!=itr.dataPtr;
+            return this->dataPtr != itr.dataPtr;
         }
 
         /**
          * \return a reference to this.
          */
-        pixel_iterator& operator* () { return *this; }
+        pixel_iterator& operator*() { return *this; }
 
         /**
          * \return a reference to this. Does not increment pixel pointer.
          */
-        pixel_iterator& operator++ ()  { return *this; }
+        pixel_iterator& operator++() { return *this; }
 
         /**
          * \return a reference to this. Does not increment pixel pointer.
          */
-        pixel_iterator& operator++ (int)  { return *this; }
-        
+        pixel_iterator& operator++(int) { return *this; }
+
         /**
          * Must be called if not all pixels of the required window are going
          * to be written.
@@ -622,33 +638,36 @@ public:
          * \param disp Display we're associated
          */
         pixel_iterator(Point start, Point end, IteratorDirection direction,
-                DisplayImpl *disp) : ctr(0), dataPtr(disp->framebuffer1)
+                       DisplayImpl* disp)
+            : ctr(0), dataPtr(disp->framebuffer1)
         {
-            //Compute the increment in the adjacent direction (aIncr) and in the
-            //step direction (sIncr) depending on the direction
-            dataPtr+=start.y()*disp->getWidth()+start.x();
-            if(direction==RD)
+            // Compute the increment in the adjacent direction (aIncr) and in
+            // the step direction (sIncr) depending on the direction
+            dataPtr += start.y() * disp->getWidth() + start.x();
+            if (direction == RD)
             {
-                endCtr=end.x()+1-start.x();
-                aIncr=1;
-                sIncr=disp->getWidth()-endCtr;
-            } else {
-                endCtr=end.y()+1-start.y();
-                aIncr=disp->getWidth();
-                sIncr=-aIncr*endCtr+1;
+                endCtr = end.x() + 1 - start.x();
+                aIncr  = 1;
+                sIncr  = disp->getWidth() - endCtr;
+            }
+            else
+            {
+                endCtr = end.y() + 1 - start.y();
+                aIncr  = disp->getWidth();
+                sIncr  = -aIncr * endCtr + 1;
             }
         }
 
-        unsigned short ctr;           ///< Counter to decide when to step
-        unsigned short endCtr;        ///< When ctr==endCtr apply a step
-        
-        short aIncr;                  ///< Adjacent increment
-        int sIncr;                    ///< Step increment           
-        Color *dataPtr;               ///< Pointer to framebuffer
-        
-        static Color dummy;           ///< Invalid iterators write here
+        unsigned short ctr;     ///< Counter to decide when to step
+        unsigned short endCtr;  ///< When ctr==endCtr apply a step
 
-        friend class DisplayImpl; //Needs access to ctor
+        short aIncr;     ///< Adjacent increment
+        int sIncr;       ///< Step increment
+        Color* dataPtr;  ///< Pointer to framebuffer
+
+        static Color dummy;  ///< Invalid iterators write here
+
+        friend class DisplayImpl;  // Needs access to ctor
     };
 
     /**
@@ -668,7 +687,7 @@ public:
      * begin()
      */
     pixel_iterator end() const { return last; }
-    
+
     /**
      * Destructor
      */
@@ -680,32 +699,33 @@ private:
      * Do not instantiate objects of this type directly from application code.
      */
     DisplayImpl();
-    
-    #if defined MXGUI_ORIENTATION_VERTICAL
-    static const short int width=480;
-    static const short int height=800;
-    #elif defined MXGUI_ORIENTATION_HORIZONTAL
-    static const short int width=800;
-    static const short int height=480;
-    #elif defined MXGUI_ORIENTATION_VERTICAL_MIRRORED || \
-          defined MXGUI_ORIENTATION_HORIZONTAL_MIRRORED
-    #error unsupported orientation
-    #else
-    #error No orientation defined
-    #endif
+
+#if defined MXGUI_ORIENTATION_VERTICAL
+    static const short int width  = 480;
+    static const short int height = 800;
+#elif defined MXGUI_ORIENTATION_HORIZONTAL
+    static const short int width  = 800;
+    static const short int height = 480;
+#elif defined MXGUI_ORIENTATION_VERTICAL_MIRRORED || \
+    defined MXGUI_ORIENTATION_HORIZONTAL_MIRRORED
+#error unsupported orientation
+#else
+#error No orientation defined
+#endif
 
     /**
      * Pointer to the memory mapped display.
      */
-    Color * const framebuffer1;
-    Color *buffer; ///< For scanLineBuffer
-    pixel_iterator last; ///< Last iterator for end of iteration check
-    static const unsigned int bpp=sizeof(Color); ///< Bytes per pixel
-    static const int numPixels=width*height; ///< Number of pixels of the display
+    Color* const framebuffer1;
+    Color* buffer;        ///< For scanLineBuffer
+    pixel_iterator last;  ///< Last iterator for end of iteration check
+    static const unsigned int bpp = sizeof(Color);  ///< Bytes per pixel
+    static const int numPixels =
+        width * height;  ///< Number of pixels of the display
 };
 
-} //namespace mxgui
+}  // namespace mxgui
 
-#endif //_BOARD_STM32F469NI_STM32F469I_DISCO
+#endif  //_BOARD_STM32F469NI_STM32F469I_DISCO
 
-#endif //DISPLAY_STM32F4DISCOVERY_H
+#endif  // DISPLAY_STM32F4DISCOVERY_H

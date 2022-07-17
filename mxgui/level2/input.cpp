@@ -29,18 +29,19 @@
 
 #ifdef MXGUI_LEVEL_2
 
-#include "drivers/event_qt.h"
-#include "drivers/event_win.h"
 #include "drivers/event_mp3v2.h"
-#include "drivers/event_strive.h"
-#include "drivers/event_stm3210e-eval.h"
+#include "drivers/event_qt.h"
 #include "drivers/event_redbull_v2.h"
 #include "drivers/event_sony-newman.h"
+#include "drivers/event_stm3210e-eval.h"
 #include "drivers/event_stm32f4discovery.h"
+#include "drivers/event_strive.h"
+#include "drivers/event_win.h"
 
 using namespace std;
 
-namespace mxgui {
+namespace mxgui
+{
 
 //
 // class InputHandler
@@ -53,23 +54,17 @@ InputHandler& InputHandler::instance()
     return singleton;
 }
 
-Event InputHandler::getEvent()
-{
-    return pImpl->getEvent();
-}
+Event InputHandler::getEvent() { return pImpl->getEvent(); }
 
-Event InputHandler::popEvent()
-{
-    return pImpl->popEvent();
-}
+Event InputHandler::popEvent() { return pImpl->popEvent(); }
 
-function<void ()> InputHandler::registerEventCallback(function<void ()> cb)
+function<void()> InputHandler::registerEventCallback(function<void()> cb)
 {
     return pImpl->registerEventCallback(cb);
 }
 
-InputHandler::InputHandler(InputHandlerImpl *impl) : pImpl(impl) {}
+InputHandler::InputHandler(InputHandlerImpl* impl) : pImpl(impl) {}
 
-} //namespace mxgui
+}  // namespace mxgui
 
-#endif //MXGUI_LEVEL_2
+#endif  // MXGUI_LEVEL_2
