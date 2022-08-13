@@ -38,6 +38,7 @@
     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) ||       \
     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) ||      \
     defined(_BOARD_STM32F429ZI_SKYWARD_GS) ||              \
+    defined(_BOARD_STM32F429ZI_SKYWARD_GS_PARAFOIL) ||     \
     defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
     defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
     defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
@@ -54,7 +55,7 @@ public:
         WindowForeground,     // Window manager moved this window to foreground
         WindowBackground,     // Window manager moved this window to background
         WindowQuit,           // Window manager requested the window to close
-                     // These are a must on all backends -- end
+                              // These are a must on all backends -- end
 
         TouchDown = 1,
         TouchUp   = 2,

@@ -43,6 +43,7 @@ using namespace miosix;
     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) ||       \
     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) ||      \
     defined(_BOARD_STM32F429ZI_SKYWARD_GS) ||              \
+    defined(_BOARD_STM32F429ZI_SKYWARD_GS_PARAFOIL) ||     \
     defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
     defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
     defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL)
