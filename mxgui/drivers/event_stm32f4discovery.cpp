@@ -28,23 +28,12 @@
 
 #include <config/mxgui_settings.h>
 
-#if (defined(_BOARD_STM32F4DISCOVERY) ||                   \
-     defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) ||       \
-     defined(_BOARD_STM32F429ZI_OLEDBOARD2) ||             \
-     defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN) ||         \
-     defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE) ||        \
-     defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) ||      \
-     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST) ||        \
-     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) ||      \
-     defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3)) ||    \
+#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) ||        \
+    defined(_BOARD_STM32F429ZI_OLEDBOARD2) ||              \
     defined(_BOARD_STM32F429ZI_SKYWARD_GS) ||              \
     defined(_BOARD_STM32F429ZI_SKYWARD_GS_V2) ||           \
     defined(_BOARD_STM32F429ZI_SKYWARD_GS_PARAFOIL) ||     \
-    defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
-    defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
-    defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
-    defined(_BOARD_STM32F429ZI_SKYWARD_RIG) ||             \
-    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI) && defined(MXGUI_LEVEL_2)
+    defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) && defined(MXGUI_LEVEL_2)
 
 #include <algorithm>
 

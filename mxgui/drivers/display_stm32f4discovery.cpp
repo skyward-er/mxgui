@@ -34,21 +34,12 @@
 using namespace std;
 using namespace miosix;
 
-#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) ||        \
-    defined(_BOARD_STM32F429ZI_OLEDBOARD2) ||              \
-    defined(_BOARD_STM32F429ZI_SKYWARD_ANAKIN) ||          \
-    defined(_BOARD_STM32F429ZI_SKYWARD_HOMEONE) ||         \
-    defined(_BOARD_STM32F429ZI_SKYWARD_ROGALLINA) ||       \
-    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST) ||         \
-    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_X) ||       \
-    defined(_BOARD_STM32F429ZI_SKYWARD_DEATHST_V3) ||      \
-    defined(_BOARD_STM32F429ZI_SKYWARD_GS) ||              \
-    defined(_BOARD_STM32F429ZI_SKYWARD_GS_V2) ||           \
-    defined(_BOARD_STM32F429ZI_SKYWARD_GS_PARAFOIL) ||     \
-    defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
-    defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
-    defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
-    defined(_BOARD_STM32F429ZI_SKYWARD_RIG)
+#if defined(_BOARD_STM32F429ZI_STM32F4DISCOVERY) ||    \
+    defined(_BOARD_STM32F429ZI_OLEDBOARD2) ||          \
+    defined(_BOARD_STM32F429ZI_SKYWARD_GS) ||          \
+    defined(_BOARD_STM32F429ZI_SKYWARD_GS_V2) ||       \
+    defined(_BOARD_STM32F429ZI_SKYWARD_GS_PARAFOIL) || \
+    defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL)
 
 namespace mxgui
 {

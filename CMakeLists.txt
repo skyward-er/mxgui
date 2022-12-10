@@ -28,9 +28,9 @@ if(NOT KPATH)
     message(FATAL_ERROR "Kernel directory not found")
 endif()
 
-include(${KPATH}/config/boards.cmake)
+include(cmake/boards.cmake)
 
-foreach(OPT_BOARD ${BOARDS})
+foreach(OPT_BOARD ${MXGUI_BOARDS})
     set(DFLAGS -MMD -MP)
     include(${KPATH}/config/options.cmake)
 
