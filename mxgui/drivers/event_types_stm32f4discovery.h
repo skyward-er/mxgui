@@ -43,7 +43,8 @@
     defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
     defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
     defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
-    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI)
+    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI) ||           \
+    defined(_BOARD_STM32F429ZI_SKYWARD_RIG)
 
 class EventType
 {
@@ -51,23 +52,23 @@ public:
     enum E
     {
         // These are a must on all backends -- begin
-        Default = 0,          // This actually means 'no event'
-        WindowPartialRedraw,  // At least one drawable has requested redraw
-        WindowForeground,     // Window manager moved this window to foreground
-        WindowBackground,     // Window manager moved this window to background
-        WindowQuit,           // Window manager requested the window to close
-                              // These are a must on all backends -- end
+        Default = 0,         // This actually means 'no event'
+        WindowPartialRedraw, // At least one drawable has requested redraw
+        WindowForeground,    // Window manager moved this window to foreground
+        WindowBackground,    // Window manager moved this window to background
+        WindowQuit,          // Window manager requested the window to close
+                             // These are a must on all backends -- end
 
         TouchDown = 1,
-        TouchUp   = 2,
+        TouchUp = 2,
         TouchMove = 3,
-        ButtonA   = 4  // The blue button
+        ButtonA = 4 // The blue button
     };
 
 private:
     EventType();
 };
 
-#endif  //_BOARD_STM32F429ZI_STM32F4DISCOVERY
+#endif //_BOARD_STM32F429ZI_STM32F4DISCOVERY
 
-#endif  // EVENT_TYPES_STM32F4DISCOVERY_H
+#endif // EVENT_TYPES_STM32F4DISCOVERY_H

@@ -28,7 +28,7 @@
 #ifndef MXGUI_LIBRARY
 #error "This is header is private, it can be used only within mxgui."
 #error "If your code depends on a private header, it IS broken."
-#endif  // MXGUI_LIBRARY
+#endif // MXGUI_LIBRARY
 
 #include <functional>
 
@@ -52,46 +52,47 @@
     defined(_BOARD_STM32F429ZI_HRE_TEST_STAND) ||          \
     defined(_BOARD_STM32F429ZI_SKYWARD_PYXIS_AUXILIARY) || \
     defined(_BOARD_STM32F429ZI_SKYWARD_PARAFOIL) ||        \
-    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI)
+    defined(_BOARD_STM32F205RC_SKYWARD_CIUTI) ||           \
+    defined(_BOARD_STM32F429ZI_SKYWARD_RIG)
 
 namespace mxgui
 {
 
-/**
- * Implementation class to handle events in the Mp3v2 backend
- */
-class InputHandlerImpl
-{
-public:
-    InputHandlerImpl();
-
     /**
-     * \return an event, blocking
+     * Implementation class to handle events in the Mp3v2 backend
      */
-    Event getEvent();
+    class InputHandlerImpl
+    {
+    public:
+        InputHandlerImpl();
 
-    /**
-     * \return an event, nonblocking. A default constructed event is returned
-     * if there are no events.
-     */
-    Event popEvent();
+        /**
+         * \return an event, blocking
+         */
+        Event getEvent();
 
-    /**
-     * Register a callback that will be called every time an event is geenrated
-     *
-     * Note: the thread calling the callback has a very small stack.
-     *
-     * Note: concurrent access to this memebr function causes undefined
-     * behaviour
-     *
-     * \param cb new callback to register
-     * \return the previous callback
-     */
-    std::function<void()> registerEventCallback(std::function<void()> cb);
-};
+        /**
+         * \return an event, nonblocking. A default constructed event is returned
+         * if there are no events.
+         */
+        Event popEvent();
 
-}  // namespace mxgui
+        /**
+         * Register a callback that will be called every time an event is geenrated
+         *
+         * Note: the thread calling the callback has a very small stack.
+         *
+         * Note: concurrent access to this memebr function causes undefined
+         * behaviour
+         *
+         * \param cb new callback to register
+         * \return the previous callback
+         */
+        std::function<void()> registerEventCallback(std::function<void()> cb);
+    };
 
-#endif  //_BOARD_STM32F429ZI_STM32F4DISCOVERY
+} // namespace mxgui
 
-#endif  // EVENT_STM32F4DISCOVERY_H
+#endif //_BOARD_STM32F429ZI_STM32F4DISCOVERY
+
+#endif // EVENT_STM32F4DISCOVERY_H
