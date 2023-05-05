@@ -47,6 +47,7 @@ foreach(OPT_BOARD ${MXGUI_BOARDS})
         mxgui/level2/drawing_context_proxy.cpp
         mxgui/level2/label.cpp
         mxgui/level2/simple_plot.cpp
+        mxgui/level2/Plot/Plot.cpp
         mxgui/drivers/display_stm3210e-eval.cpp
         mxgui/drivers/event_stm3210e-eval.cpp
         mxgui/drivers/display_mp3v2.cpp
@@ -77,6 +78,7 @@ foreach(OPT_BOARD ${MXGUI_BOARDS})
         ${KPATH}/arch/common
         ${KPATH}/${ARCH_INC}
         ${KPATH}/${BOARD_INC}
+        ../../src/shared
     )
     target_compile_options(${MXGUI_LIBRARY} PUBLIC ${DFLAGS} $<$<COMPILE_LANGUAGE:C>:${CFLAGS_BASE}> $<$<COMPILE_LANGUAGE:CXX>:${CXXFLAGS_BASE}> $<$<COMPILE_LANGUAGE:ASM>:${AFLAGS_BASE}>)
     target_compile_definitions(${MXGUI_LIBRARY} PRIVATE MXGUI_LIBRARY)
