@@ -25,10 +25,12 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef POINT_H
-#define	POINT_H
+#include <cstdint>
 
-namespace mxgui {
+#pragma once
+
+namespace mxgui
+{
 
 /**
  * \ingroup pub_iface
@@ -40,27 +42,27 @@ public:
     /**
      * Constructor, create an instance of the Point class given x and y
      */
-    Point(short int x, short int y): x_(x), y_(y) {}
+    Point(int16_t x, int16_t y) : x_(x), y_(y) {}
 
     /**
      * Default constructor, yields a point to (0,0)
      */
-    Point(): x_(0), y_(0) {}
+    Point() : x_(0), y_(0) {}
 
     /**
      * \return x coordinate
      */
-    short int x() const { return x_; }
+    int16_t x() const { return x_; }
 
     /**
      * \return the y coordinate
      */
-    short int y() const { return y_; }
+    int16_t y() const { return y_; }
 
     /**
      * Compare two points for equality
      */
-    bool operator== (Point p)
+    bool operator==(Point p)
     {
         return (this->x_ == p.x_) && (this->y_ == p.y_);
     }
@@ -68,14 +70,23 @@ public:
     /**
      * Compare two points for inequality
      */
-    bool operator!= (Point p)
+    bool operator!=(Point p)
     {
         return (this->x_ != p.x_) || (this->y_ != p.y_);
     }
 
-    //Uses default copy constructor and operator=
+    /**
+     * @brief Adds two points together.
+     */
+    friend Point operator+(const Point& first, const Point& second)
+    {
+        return {(int16_t)(first.x_ + second.x_),
+                (int16_t)(first.y_ + second.y_)};
+    }
+
+    // Uses default copy constructor and operator=
 private:
-    short int x_,y_;
+    int16_t x_, y_;
 };
 
 /**
@@ -86,9 +97,7 @@ private:
  */
 inline bool within(Point a, Point b, Point c)
 {
-    return a.x()>=b.x() && a.y()>=b.y() && a.x()<c.x() && a.y()<c.y();
+    return a.x() >= b.x() && a.y() >= b.y() && a.x() < c.x() && a.y() < c.y();
 }
 
-} // namespace mxgui
-
-#endif //POINT_H
+}  // namespace mxgui

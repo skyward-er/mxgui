@@ -17,12 +17,6 @@ Plot::Plot(Point upperLeft, Point lowerRight)
     // ...
 }
 
-void Plot::setXScale(float min, float max)
-{
-    xMin = min;
-    xMax = max;
-}
-
 void Plot::setYScale(float min, float max)
 {
     yMin = min;
@@ -38,39 +32,47 @@ void Plot::draw(DrawingContext& dc)
 
     // Draw axes
     {
+        constexpr short int lineOffset = 6;
+        constexpr short int arrowSize  = 6;
+
+        const Point upperEnd(upperLeft.x() + lineOffset,
+                             upperLeft.y() + lineOffset);
+        const Point lowerEnd(upperLeft.x() + lineOffset,
+                             lowerRight.y() - lineOffset);
+
         // Y axis line
-        dc.line({upperLeft.x() + 6, upperLeft.y() + 6},
-                {upperLeft.x() + 6, lowerRight.y() - 6}, white);
+        dc.line(upperEnd, lowerEnd, white);
 
         // Upper arrow
-        dc.line({upperLeft.x() + 6, upperLeft.y() + 6},
-                {upperLeft.x() + 3, upperLeft.y() + 10}, white);
-        dc.line({upperLeft.x() + 6, upperLeft.y() + 6},
-                {upperLeft.x() + 9, upperLeft.y() + 10}, white);
+        dc.line(upperEnd, upperEnd + Point{-arrowSize / 2, arrowSize / 2},
+                white);
+        dc.line(upperEnd, upperEnd + Point{arrowSize / 2, arrowSize / 2},
+                white);
 
         // Lower arrow
-        dc.line({upperLeft.x() + 6, lowerRight.y() - 6},
-                {upperLeft.x() + 3, lowerRight.y() - 10}, white);
-        dc.line({upperLeft.x() + 6, lowerRight.y() - 6},
-                {upperLeft.x() + 9, lowerRight.y() - 10}, white);
+        dc.line(lowerEnd, lowerEnd + Point{-arrowSize / 2, -arrowSize / 2},
+                white);
+        dc.line(lowerEnd, lowerEnd + Point{arrowSize / 2, -arrowSize / 2},
+                white);
 
         // Max and min values
         dc.setFont(droid11);
-        dc.write({upperLeft.x() + 12, upperLeft.y() + 2},
-                 toString(yMax, 0).c_str());
-        dc.write({upperLeft.x() + 12, lowerRight.y() - 11 - 2},
+        dc.write(upperEnd + Point{lineOffset, 0}, toString(yMax, 0).c_str());
+        dc.write(lowerEnd + Point{lineOffset, -droid11.getHeight()},
                  toString(yMin, 0).c_str());
     }
 
     // Draw data points
-    for (int i = 1; i < buffer.count(); i++)
+    for (size_t i = 1; i < buffer.count(); i++)
     {
         short int x1 =
             upperLeft.x() + buffer.getSize() - buffer.count() + i - 1;
-        short int y1 = buffer.get(i - 1) * (lowerRight.y() - upperLeft.y());
+        short int y1 = (buffer.get(i - 1) - yMin) / (yMax - yMin) *
+                       (lowerRight.y() - upperLeft.y());
 
         short int x2 = upperLeft.x() + buffer.getSize() - buffer.count() + i;
-        short int y2 = buffer.get(i) * (lowerRight.y() - upperLeft.y());
+        short int y2 = (buffer.get(i) - yMin) / (yMax - yMin) *
+                       (lowerRight.y() - upperLeft.y());
 
         dc.line({x1, y1}, {x2, y2}, white);
     }

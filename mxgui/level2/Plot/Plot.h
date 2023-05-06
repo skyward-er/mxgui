@@ -14,8 +14,6 @@ class Plot
 public:
     Plot(Point upperLeft, Point lowerRight);
 
-    void setXScale(float min, float max);
-
     void setYScale(float min, float max);
 
     void addDataPoint(float y);
@@ -27,10 +25,6 @@ private:
 
     // Corner coordinates of the plot
     Point upperLeft, lowerRight;
-
-    // X scale
-    float xMin = 0;
-    float xMax = 1;
 
     // Y scale
     float yMin = 0;
