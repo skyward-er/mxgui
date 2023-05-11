@@ -3,6 +3,7 @@
 #include <display.h>
 #include <utils/collections/ResizableCircularBuffer.h>
 
+#include <map>
 #include <string>
 #include <vector>
 
@@ -16,7 +17,7 @@ public:
 
     void setYScale(float min, float max);
 
-    void addDataPoint(float y);
+    void addDataPoint(float y, int index, Color color);
 
     void draw(DrawingContext& dc);
 
@@ -30,8 +31,9 @@ private:
     float yMin = 0;
     float yMax = 1;
 
-    // Data buffer
-    Boardcore::ResizableCircularBuffer<float> buffer;
+    // Data buffers
+    std::map<int, Boardcore::ResizableCircularBuffer<float>*> buffers;
+    std::map<int, Color> colors;
 
     bool first = true;
 };

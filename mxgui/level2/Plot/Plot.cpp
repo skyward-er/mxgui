@@ -11,8 +11,7 @@ namespace mxgui
 {
 
 Plot::Plot(Point upperLeft, Point lowerRight)
-    : upperLeft(upperLeft), lowerRight(lowerRight),
-      buffer(lowerRight.x() - upperLeft.x())
+    : upperLeft(upperLeft), lowerRight(lowerRight)
 {
     // ...
 }
@@ -23,7 +22,17 @@ void Plot::setYScale(float min, float max)
     yMax = max;
 }
 
-void Plot::addDataPoint(float y) { buffer.put(y); }
+void Plot::addDataPoint(float y, int index, Color color)
+{
+    if (buffers.count(index) == 0)
+    {
+        buffers.emplace(index, new Boardcore::ResizableCircularBuffer<float>{
+                                   lowerRight.x() - upperLeft.x()});
+    }
+
+    buffers[index]->put(y);
+    colors[index] = color;
+}
 
 void Plot::draw(DrawingContext& dc)
 {
@@ -63,18 +72,22 @@ void Plot::draw(DrawingContext& dc)
     }
 
     // Draw data points
-    for (size_t i = 1; i < buffer.count(); i++)
+    for (auto buffer : buffers)
     {
-        short int x1 =
-            upperLeft.x() + buffer.getSize() - buffer.count() + i - 1;
-        short int y1 = (buffer.get(i - 1) - yMin) / (yMax - yMin) *
-                       (lowerRight.y() - upperLeft.y());
+        for (size_t i = 1; i < buffer.second->count(); i++)
+        {
+            short int x1 = upperLeft.x() + buffer.second->getSize() -
+                           buffer.second->count() + i - 1;
+            short int y1 = (buffer.second->get(i - 1) - yMin) / (yMax - yMin) *
+                           (lowerRight.y() - upperLeft.y());
 
-        short int x2 = upperLeft.x() + buffer.getSize() - buffer.count() + i;
-        short int y2 = (buffer.get(i) - yMin) / (yMax - yMin) *
-                       (lowerRight.y() - upperLeft.y());
+            short int x2 = upperLeft.x() + buffer.second->getSize() -
+                           buffer.second->count() + i;
+            short int y2 = (buffer.second->get(i) - yMin) / (yMax - yMin) *
+                           (lowerRight.y() - upperLeft.y());
 
-        dc.line({x1, y1}, {x2, y2}, white);
+            dc.line({x1, y1}, {x2, y2}, colors[buffer.first]);
+        }
     }
 }
 
