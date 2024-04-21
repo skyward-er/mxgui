@@ -27,10 +27,10 @@ set(MXGUI_BOARDS
     stm32f103ve_mp3v2
     stm32f103ve_strive_mini
     stm32f103ze_redbull_v2
-    stm32f103ze_stm3210e-eval
-    stm32f205rg_sony-newman
-    stm32f207ig_stm3220g-eval
+    stm32f103ze_evaluation
+    stm32f205rg_sony_newman
+    stm32f207ig_evaluation
     stm32f407vg_bitsboard
     stm32f429zi_oledboard2
-    stm32f429zi_stm32f4discovery
+    stm32f429zi_discovery
 )

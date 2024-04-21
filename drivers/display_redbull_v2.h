@@ -346,7 +346,7 @@ private:
     /**
      * Memory layout of the display.
      * This backend is meant to connect an stm32f103re to an LCD display with
-     * an spfd5408 controller on the stm3210e_eval board.
+     * an spfd5408 controller on the stm3210e_evaluation board.
      */
     struct DisplayMemLayout
     {
