@@ -33,7 +33,7 @@
 #ifndef DISPLAY_STM3210E_EVAL_H
 #define	DISPLAY_STM3210E_EVAL_H
 
-#ifdef _BOARD_STM3210E_EVAL
+#ifdef _BOARD_STM32F103ZE_EVALUATION
 
 #include <config/mxgui_settings.h>
 #include "display.h"
@@ -508,6 +508,6 @@ private:
 
 } //namespace mxgui
 
-#endif //_BOARD_STM3210E_EVAL
+#endif //_BOARD_STM32F103ZE_EVALUATION
 
 #endif //DISPLAY_STM3210E_EVAL_H

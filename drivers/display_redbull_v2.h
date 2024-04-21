@@ -33,7 +33,7 @@
 #ifndef DISPLAY_REDBULL_V2_H
 #define DISPLAY_REDBULL_V2_H
 
-#ifdef _BOARD_REDBULL_V2
+#ifdef _BOARD_STM32F103ZE_REDBULL_V2
 
 #include <config/mxgui_settings.h>
 #include "display.h"
@@ -413,6 +413,6 @@ private:
 
 } //namespace mxgui
 
-#endif //_BOARD_REDBULL_V2
+#endif //_BOARD_STM32F103ZE_REDBULL_V2
 
 #endif //DISPLAY_REDBULL_V2_H
